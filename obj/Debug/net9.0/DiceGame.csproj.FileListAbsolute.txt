@@ -15,3 +15,4 @@
 /home/foxxie_911/Documents/SurvivalCamp/TASK3/DiceGame/bin/Debug/net9.0/Spectre.Console.dll
 /home/foxxie_911/Documents/SurvivalCamp/TASK3/DiceGame/obj/Debug/net9.0/DiceGame.csproj.AssemblyReference.cache
 /home/foxxie_911/Documents/SurvivalCamp/TASK3/DiceGame/obj/Debug/net9.0/DiceGame.csproj.Up2Date
+/home/foxxie_911/Documents/SurvivalCamp/TASK3/DiceGame/obj/Debug/net9.0/DiceGame.sourcelink.json
