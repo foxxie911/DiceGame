@@ -9,7 +9,7 @@ namespace Foxxie911.DiceGame.Components
     {
         public static Dictionary<string,string> FirstMoveSelector()
         {
-            int selection = RandomNumberGenerator.GetInt32(1);
+            int selection = RandomNumberGenerator.GetInt32(2);
             var validity = new ValidityService(selection);
             return new Dictionary<string,string>
             {

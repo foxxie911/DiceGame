@@ -15,8 +15,8 @@ namespace Foxxie911.DiceGame.Components
             for (int i = 0; i < args.Length; i++)
             {
                 string[] faces = args[i].Split(",");
-                int[] faceValues = new int[faces.Length];
-                for (int j = 0; j < faces.Length; j++)
+                int[] faceValues = new int[6];
+                for (int j = 0; j < 6; j++)
                 {
                     faceValues[j] = int.Parse(faces[j]);
                 }

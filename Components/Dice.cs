@@ -1,10 +1,8 @@
-using System.Text;
-
 namespace Foxxie911.DiceGame.Components
 {
     public class Dice(int[] faces)
     {
-        private readonly int[] faces = faces;
+        int[] faces = faces;
 
         public int GetFaceValue(int faceIndex)
         {
@@ -19,20 +17,17 @@ namespace Foxxie911.DiceGame.Components
             }
         }
 
-        public string PrintFaces(int[] faces)
+        public string PrintFaces()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append('[');
-            for (int i = 0; i < faces.Length; i++)
-            {
-                sb.Append(faces[i]);
-                if (i < faces.Length - 1)
-                {
-                    sb.Append(", ");
+            string facesString = "[";
+            for(int i = 0; i < faces.Length; i++){
+                facesString += faces[i] ;
+                if(i < faces.Length-1){
+                    facesString += ", ";
                 }
             }
-            sb.Append("]");
-            return sb.ToString();
+            facesString += "]";
+            return facesString;
         }
 
     }
