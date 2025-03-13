@@ -1,7 +1,9 @@
 namespace Foxxie911.DiceGame
 {
-    public class ProbabilityCalculator{
-        public static double CalculateProbability(Dice chosenDice, Dice ohterDice){
+    public class ProbabilityCalculator
+    {
+        public static double CalculateProbability(Dice chosenDice, Dice ohterDice)
+        {
             int[] faces1 = chosenDice.Faces;
             int[] faces2 = ohterDice.Faces;
             var totalCombinations = faces1.Length * faces2.Length;

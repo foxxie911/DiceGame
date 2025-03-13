@@ -6,6 +6,7 @@ namespace Foxxie911.DiceGame
     public class Gameplay(string[] args)
     {
         List<Dice> dices = [new Dice([])];
+        List<Dice> allDices = [new Dice([])];
         bool botFirst;
         Dice botDice = new Dice([]);
         Dice userDice = new Dice([]);
@@ -13,6 +14,7 @@ namespace Foxxie911.DiceGame
         public void StartGame()
         {
             dices = DiceConfiguration.Parse(args).ToList<Dice>();
+            allDices = dices.ToList();
             AnsiConsole.Markup("[bold green]Welcome to the Dice Game![/]\n");
             GetFirstThrower();
             if (botFirst)
@@ -46,7 +48,7 @@ namespace Foxxie911.DiceGame
             var userInput = Console.ReadLine();
             if (userInput == "?")
             {
-                ProbabilityTable.PrintProbabilityTable(dices);
+                ProbabilityTable.PrintProbabilityTable(allDices);
                 Console.Write("Your selection: ");
                 userInput = Console.ReadLine();
             }
@@ -54,9 +56,7 @@ namespace Foxxie911.DiceGame
             AnsiConsole.Markup($"[bold green]My selection:[/] {botInput["Message"]}\n");
             AnsiConsole.Markup($"[bold green]Key:[/] {botInput["Key"]}\n");
             int botSelectionInt = int.Parse(botInput["Message"]);
-#pragma warning disable CS8604 // Possible null reference argument.
             int userSelectionInt = int.Parse(userInput);
-#pragma warning restore CS8604 // Possible null reference argument.
             if (botSelectionInt != userSelectionInt) return botFirst = true;
             return botFirst = false;
         }
@@ -99,14 +99,12 @@ namespace Foxxie911.DiceGame
             var userInput = Console.ReadLine();
             if (userInput == "?")
             {
-                ProbabilityTable.PrintProbabilityTable(dices);
+                ProbabilityTable.PrintProbabilityTable(allDices);
                 Console.Write("Your selection: ");
                 userInput = Console.ReadLine();
             }
             if (userInput == "X") Environment.Exit(0);
-#pragma warning disable CS8604 // Possible null reference argument.
             var userDice = dices.ElementAt(int.Parse(userInput));
-#pragma warning restore CS8604 // Possible null reference argument.
             dices.RemoveAt(int.Parse(userInput));
             return userDice;
         }
@@ -124,14 +122,12 @@ namespace Foxxie911.DiceGame
             var userInput = Console.ReadLine();
             if (userInput == "?")
             {
-                ProbabilityTable.PrintProbabilityTable(dices);
+                ProbabilityTable.PrintProbabilityTable(allDices);
                 Console.Write("Your selection: ");
                 userInput = Console.ReadLine();
             }
             if (userInput == "X") Environment.Exit(0);
-#pragma warning disable CS8604 // Possible null reference argument.
             int userThrowInput = int.Parse(userInput);
-#pragma warning restore CS8604 // Possible null reference argument.
 
             AnsiConsole.Markup($"I have selected {botThrowInput["Message"]}\n");
             AnsiConsole.Markup($"[bold green]Key:[/] {botThrowInput["Key"]}\n");
@@ -153,14 +149,12 @@ namespace Foxxie911.DiceGame
             var userInput = Console.ReadLine();
             if (userInput == "?")
             {
-                ProbabilityTable.PrintProbabilityTable(dices);
+                ProbabilityTable.PrintProbabilityTable(allDices);
                 Console.Write("Your selection: ");
                 userInput = Console.ReadLine();
             }
             if (userInput == "X") Environment.Exit(0);
-#pragma warning disable CS8604 // Possible null reference argument.
             int userThrowInput = int.Parse(userInput);
-#pragma warning restore CS8604 // Possible null reference argument.
 
             AnsiConsole.Markup($"I have selected {botThrowInput["Message"]}\n");
             AnsiConsole.Markup($"[bold green]Key:[/] {botThrowInput["Key"]}\n");

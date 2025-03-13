@@ -10,7 +10,8 @@ namespace Foxxie911.DiceGame
             table.Border(TableBorder.Rounded);
             table.Centered();
             table.AddColumn(new TableColumn(new Markup("Probability")));
-            foreach(Dice dice in dices){
+            foreach (Dice dice in dices)
+            {
                 string diceFaces = dice.PrintFaces();
                 table.AddColumn(new TableColumn(new Markup($"[bold green][{diceFaces}][/]")));
             }
@@ -19,12 +20,14 @@ namespace Foxxie911.DiceGame
             {
                 string[] rowString = new string[dices.Count + 1];
                 rowString[0] = $"[bold green][{dices[i].PrintFaces()}][/]";
-                for(int j = 1; j < rowString.Length; j++){
-                    if(dices[i] == dices[j-1]){
+                for (int j = 1; j < rowString.Length; j++)
+                {
+                    if (dices[i] == dices[j - 1])
+                    {
                         rowString[j] = "x";
                         continue;
                     }
-                    double probability = ProbabilityCalculator.CalculateProbability(dices[i], dices[j-1]);
+                    double probability = ProbabilityCalculator.CalculateProbability(dices[i], dices[j - 1]);
                     rowString[j] = probability.ToString("0.00000");
                 }
                 table.AddRow(rowString);

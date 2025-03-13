@@ -20,9 +20,11 @@ namespace Foxxie911.DiceGame
         public string PrintFaces()
         {
             string facesString = "[";
-            for(int i = 0; i < faces.Length; i++){
-                facesString += faces[i] ;
-                if(i < faces.Length-1){
+            for (int i = 0; i < faces.Length; i++)
+            {
+                facesString += faces[i];
+                if (i < faces.Length - 1)
+                {
                     facesString += ", ";
                 }
             }
