@@ -1,5 +1,3 @@
-// TODO Implement the whome gameplay logic.
-
 using System.Security.Cryptography;
 using Microsoft.VisualBasic;
 using Spectre.Console;

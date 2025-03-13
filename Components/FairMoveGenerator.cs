@@ -1,6 +1,3 @@
-// TODO Implement Fair Number Generation of the dice selection, throw selection etc.
-// Fair is when it will use both computer and user input to generate the random selection.
-
 using System.Security.Cryptography;
 
 namespace Foxxie911.DiceGame.Components

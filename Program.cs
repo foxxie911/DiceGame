@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using Foxxie911.DiceGame.Components;
-using Spectre.Console;
+﻿using Foxxie911.DiceGame.Components;
 
 class Program
 {

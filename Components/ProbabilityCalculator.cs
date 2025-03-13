@@ -1,5 +1,3 @@
-// TODO Calculate the probability of winning between two six face dices.
-
 namespace Foxxie911.DiceGame.Components
 {
     public class ProbabilityCalculator{
