@@ -1,8 +1,7 @@
 using System.Security.Cryptography;
-using Microsoft.VisualBasic;
 using Spectre.Console;
 
-namespace Foxxie911.DiceGame.Components
+namespace Foxxie911.DiceGame
 {
     public class Gameplay(string[] args)
     {

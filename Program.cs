@@ -1,4 +1,4 @@
-﻿using Foxxie911.DiceGame.Components;
+﻿using Foxxie911.DiceGame;
 
 class Program
 {

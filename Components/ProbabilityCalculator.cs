@@ -1,4 +1,4 @@
-namespace Foxxie911.DiceGame.Components
+namespace Foxxie911.DiceGame
 {
     public class ProbabilityCalculator{
         public static double CalculateProbability(Dice chosenDice, Dice ohterDice){

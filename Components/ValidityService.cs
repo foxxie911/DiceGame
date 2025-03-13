@@ -1,7 +1,6 @@
-using System;
 using System.Security.Cryptography;
 
-namespace Foxxie911.DiceGame.Components
+namespace Foxxie911.DiceGame
 {
     public class ValidityService
     {
