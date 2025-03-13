@@ -64,19 +64,19 @@ namespace Foxxie911.DiceGame
         private void BotFirstDiceSelection()
         {
             botDice = GetBotDice();
-            AnsiConsole.Markup("I will choose the dice first.\n");
-            Console.WriteLine($"I have choosen {botDice.PrintFaces()} dice.\n");
+            AnsiConsole.Markup($"I will choose the dice first.\n");
+            AnsiConsole.Markup($"I have choosen [bold green][{botDice.PrintFaces()}][/] dice.\n");
             userDice = GetUserDice();
-            Console.WriteLine($"You have selected {userDice.PrintFaces} dice.\n");
+            AnsiConsole.Markup($"You have selected [bold green][{userDice.PrintFaces()}][/] dice.\n");
         }
 
         private void UserFistDiceSelection()
         {
             AnsiConsole.Markup("You will make the first move.\n");
             userDice = GetUserDice();
-            Console.WriteLine($"You have selected {userDice.PrintFaces()} dice.\n");
+            AnsiConsole.Markup($"You have selected [bold green][{userDice.PrintFaces()}][/] dice.\n");
             botDice = GetBotDice();
-            Console.WriteLine($"I have chosen {botDice.PrintFaces()} dice.\n");
+            AnsiConsole.Markup($"I have chosen [bold green][{botDice.PrintFaces()}][/] dice.\n");
         }
 
         private Dice GetBotDice()
