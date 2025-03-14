@@ -112,7 +112,7 @@ namespace Foxxie911.DiceGame
         private int GetBotThrowValue()
         {
             AnsiConsole.Markup("It's my time to throw the dice.\n");
-            var botThrowInput = FairMoveGenerator.ThrowInputSelector();
+            var botThrowInput = FairMoveGenerator.ThrowInputSelector(botDice.Faces.Length);
             AnsiConsole.Markup("I have selected a random value in the range [bold]0-5[/].\n");
             AnsiConsole.Markup($"[bold green]HMAC:[/] [bold]{botThrowInput["HMAC"]}[/]\n");
 
@@ -139,7 +139,7 @@ namespace Foxxie911.DiceGame
         {
             AnsiConsole.Markup("It's your turn to throw the dice.\n");
 
-            var botThrowInput = FairMoveGenerator.ThrowInputSelector();
+            var botThrowInput = FairMoveGenerator.ThrowInputSelector(botDice.Faces.Length);
             AnsiConsole.Markup("I have selected a random value in the range [bold]0-5[/].\n");
             AnsiConsole.Markup($"[bold green]HMAC:[/] [bold]{botThrowInput["HMAC"]}[/]\n");
 

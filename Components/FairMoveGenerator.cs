@@ -16,9 +16,9 @@ namespace Foxxie911.DiceGame
             };
         }
 
-        public static Dictionary<string, string> ThrowInputSelector()
+        public static Dictionary<string, string> ThrowInputSelector(int faceCount)
         {
-            int selection = RandomNumberGenerator.GetInt32(5);
+            int selection = RandomNumberGenerator.GetInt32(faceCount);
             var validity = new ValidityService(selection);
             return new Dictionary<string, string>
             {
