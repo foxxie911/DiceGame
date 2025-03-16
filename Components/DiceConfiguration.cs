@@ -6,23 +6,10 @@ namespace Foxxie911.DiceGame
     {
         public static Dice[] Parse(string[] args)
         {
-            // Error handling
             HandleDiceCountError(args);
             HandleFormatError(args);
+            return [.. args.Select(arg => new Dice([.. arg.Split(",").Select(int.Parse)]))];
 
-            // Parsing from arguments to Dice objects
-            Dice[] dices = new Dice[args.Length];
-            for (int i = 0; i < args.Length; i++)
-            {
-                string[] faces = args[i].Split(",");
-                int[] faceValues = new int[6];
-                for (int j = 0; j < 6; j++)
-                {
-                    faceValues[j] = int.Parse(faces[j]);
-                }
-                dices[i] = new Dice(faceValues);
-            }
-            return dices;
         }
 
         private static void HandleDiceCountError(string[] args)
@@ -36,22 +23,12 @@ namespace Foxxie911.DiceGame
 
         private static void HandleFormatError(string[] args)
         {
-            foreach (string arg in args)
+            var LEGAL_FACE_COUNT = 6;
+            if(args.Any(arg => arg.Split(",").Length != LEGAL_FACE_COUNT ||
+            !arg.Split(",").All(f => int.TryParse(f, out int _))))
             {
-                string[] facesAsStrings = arg.Split(",");
-                for (int j = 0; j < facesAsStrings.Length; j++)
-                {
-                    if (!int.TryParse(facesAsStrings[j], out int face))
-                    {
-                        AnsiConsole.Markup("[bold red]Wrong format! You have to enter face values in comma separated numbers (e.g. 1,2,3,4,5,6)[/]\n");
-                        Environment.Exit(0);
-                    }
-                }
-                if (facesAsStrings.Length != 6)
-                {
                     AnsiConsole.Markup("[bold red]You have to enter 6 face values for each dice. (e.g. 2,2,4,4,5,5)[/]\n");
                     Environment.Exit(0);
-                }
             }
         }
     }

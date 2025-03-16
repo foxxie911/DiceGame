@@ -15,9 +15,9 @@ namespace Foxxie911.DiceGame
         {
             dices = DiceConfiguration.Parse(args).ToList<Dice>();
             allDices = dices.ToList();
-            
+
             AnsiConsole.Markup("[bold green]Welcome to the Dice Game![/]\n");
-            
+
             GetFirstThrower();
             if (botFirst) BotFirstDiceSelection();
             if (!botFirst) UserFistDiceSelection();
@@ -38,7 +38,7 @@ namespace Foxxie911.DiceGame
         {
             Console.Write("Your selection: ");
             var userInput = Console.ReadLine();
-             
+
             if (userInput == "?")
             {
                 ProbabilityTable.PrintProbabilityTable(allDices);
@@ -52,7 +52,7 @@ namespace Foxxie911.DiceGame
         private bool GetFirstThrower()
         {
             AnsiConsole.Markup("Let's determine who will make the first move.\n");
-            
+
             var botSelection = FairMoveGenerator.FirstMoveSelector();
             AnsiConsole.Markup("I have selected a random value in the range [bold]0-1[/].\n");
             AnsiConsole.Markup($"[bold green]HMAC:[/] [bold]{botSelection["HMAC"]}[/]\n");
@@ -99,12 +99,12 @@ namespace Foxxie911.DiceGame
 
             dices.ForEach(dice => Console.WriteLine($"{dices.IndexOf(dice)} - {dice.PrintFaces()}"));
             AnsiConsole.Markup("X- Exit\n? - Help\n");
-            
+
             Console.Write("Your selection: ");
             int userSelection = GetUserInput();
             Dice dice = dices.ElementAt(userSelection);
             dices.RemoveAt(userSelection);
-            
+
             return dice;
         }
 
@@ -126,7 +126,7 @@ namespace Foxxie911.DiceGame
 
             AnsiConsole.Markup($"I have selected {botThrowInput["Message"]}\n");
             AnsiConsole.Markup($"[bold green]Key:[/] [bold]{botThrowInput["Key"]}[/]\n");
-            
+
             int botThrowIndex = (int.Parse(botThrowInput["Message"]) + userThrowInput) % 6;
             return dice.Faces.ElementAt(botThrowIndex);
         }
