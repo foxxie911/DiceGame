@@ -27,7 +27,7 @@ namespace Foxxie911.DiceGame
             if(args.Any(arg => arg.Split(",").Length != LEGAL_FACE_COUNT ||
             !arg.Split(",").All(f => int.TryParse(f, out int _))))
             {
-                    AnsiConsole.Markup("[bold red]You have to enter 6 face values for each dice. (e.g. 2,2,4,4,5,5)[/]\n");
+                    AnsiConsole.Markup($"[bold red]You have to enter {LEGAL_FACE_COUNT} face values for each dice. (e.g. 2,2,4,4,5,5)[/]\n");
                     Environment.Exit(0);
             }
         }
