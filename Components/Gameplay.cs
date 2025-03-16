@@ -15,37 +15,30 @@ namespace Foxxie911.DiceGame
         {
             dices = DiceConfiguration.Parse(args).ToList<Dice>();
             allDices = dices.ToList();
+            
             AnsiConsole.Markup("[bold green]Welcome to the Dice Game![/]\n");
+            
             GetFirstThrower();
-            if (botFirst)
-            {
-                BotFirstDiceSelection();
-            }
-            if (!botFirst)
-            {
-                UserFistDiceSelection();
-            }
+            if (botFirst) BotFirstDiceSelection();
+            if (!botFirst) UserFistDiceSelection();
 
-            int botThrowValue = GetBotThrowValue();
+            Console.WriteLine("It's my time to throw the dice");
+            int botThrowValue = GetThrowValue(botDice);
             AnsiConsole.Markup($"My throw value is [bold green]{botThrowValue}[/]\n");
 
-            int userThrowValue = GetUserThrowValue();
+            Console.WriteLine("It's your turn to throw the dice");
+            int userThrowValue = GetThrowValue(userDice);
             AnsiConsole.Markup($"Your throw value is [bold green]{userThrowValue}[/]\n");
 
             PrintResult(botThrowValue, userThrowValue);
 
         }
 
-        private bool GetFirstThrower()
+        private int GetUserInput()
         {
-            AnsiConsole.Markup("Let's determine who will make the first move.\n");
-            var botInput = FairMoveGenerator.FirstMoveSelector();
-            AnsiConsole.Markup("I have selected a random value in the range [bold]0-1[/].\n");
-            AnsiConsole.Markup($"[bold green]HMAC:[/] [bold]{botInput["HMAC"]}[/]\n");
-            AnsiConsole.Markup("Try to guess my selection.\n");
-            AnsiConsole.Markup("0 - 0\n1 - 1\nX - Exit\n? - Help\n");
-            AnsiConsole.Markup("Your selection: ");
+            Console.Write("Your selection: ");
             var userInput = Console.ReadLine();
+             
             if (userInput == "?")
             {
                 ProbabilityTable.PrintProbabilityTable(allDices);
@@ -53,11 +46,24 @@ namespace Foxxie911.DiceGame
                 userInput = Console.ReadLine();
             }
             if (userInput == "X") Environment.Exit(0);
-            AnsiConsole.Markup($"[bold green]My selection:[/] {botInput["Message"]}\n");
-            AnsiConsole.Markup($"[bold green]Key:[/] {botInput["Key"]}\n");
-            int botSelectionInt = int.Parse(botInput["Message"]);
-            int userSelectionInt = int.Parse(userInput);
-            if (botSelectionInt != userSelectionInt) return botFirst = true;
+            return int.Parse(userInput);
+        }
+
+        private bool GetFirstThrower()
+        {
+            AnsiConsole.Markup("Let's determine who will make the first move.\n");
+            
+            var botSelection = FairMoveGenerator.FirstMoveSelector();
+            AnsiConsole.Markup("I have selected a random value in the range [bold]0-1[/].\n");
+            AnsiConsole.Markup($"[bold green]HMAC:[/] [bold]{botSelection["HMAC"]}[/]\n");
+            AnsiConsole.Markup("Try to guess my selection.\n");
+            AnsiConsole.Markup("0 - 0\n1 - 1\nX - Exit\n? - Help\n");
+
+            int userSelection = GetUserInput();
+            AnsiConsole.Markup($"[bold green]My selection:[/] {botSelection["Message"]}\n");
+            AnsiConsole.Markup($"[bold green]Key:[/] [bold]{botSelection["Key"]}[/]\n");
+
+            if (int.Parse(botSelection["Message"]) != userSelection) return botFirst = true;
             return botFirst = false;
         }
 
@@ -82,84 +88,47 @@ namespace Foxxie911.DiceGame
         private Dice GetBotDice()
         {
             var random = RandomNumberGenerator.GetInt32(dices.Count);
-            Dice botDice = dices.ElementAt(random);
+            Dice dice = dices.ElementAt(random);
             dices.RemoveAt(random);
-            return botDice;
+            return dice;
         }
 
         private Dice GetUserDice()
         {
             AnsiConsole.Markup("Choose your dice:\n");
-            foreach (Dice dice in dices)
-            {
-                Console.WriteLine($"{dices.IndexOf(dice)} - {dice.PrintFaces()}");
-            }
+
+            dices.ForEach(dice => Console.WriteLine($"{dices.IndexOf(dice)} - {dice.PrintFaces()}"));
             AnsiConsole.Markup("X- Exit\n? - Help\n");
+            
             Console.Write("Your selection: ");
-            var userInput = Console.ReadLine();
-            if (userInput == "?")
-            {
-                ProbabilityTable.PrintProbabilityTable(allDices);
-                Console.Write("Your selection: ");
-                userInput = Console.ReadLine();
-            }
-            if (userInput == "X") Environment.Exit(0);
-            var userDice = dices.ElementAt(int.Parse(userInput));
-            dices.RemoveAt(int.Parse(userInput));
-            return userDice;
+            int userSelection = GetUserInput();
+            Dice dice = dices.ElementAt(userSelection);
+            dices.RemoveAt(userSelection);
+            
+            return dice;
         }
 
-        private int GetBotThrowValue()
+        private void PrintUserOption(int faceCount)
         {
-            AnsiConsole.Markup("It's my time to throw the dice.\n");
-            var botThrowInput = FairMoveGenerator.ThrowInputSelector(botDice.Faces.Length);
+            AnsiConsole.Markup("[bold green]Your options:[/]\n");
+            for (int i = 0; i < faceCount; i++) Console.WriteLine($"{i} - {i}");
+            AnsiConsole.Markup("X - Exit\n? - Help\n");
+        }
+
+        private int GetThrowValue(Dice dice)
+        {
+            var botThrowInput = FairMoveGenerator.ThrowInputSelector(dice.Faces.Length);
             AnsiConsole.Markup("I have selected a random value in the range [bold]0-5[/].\n");
             AnsiConsole.Markup($"[bold green]HMAC:[/] [bold]{botThrowInput["HMAC"]}[/]\n");
 
-            AnsiConsole.Markup("[bold green]Your options:[/]\n");
-            AnsiConsole.Markup("0 - 0\n1 - 1\n2 - 2\n3 - 3\n4 - 4\n5 - 5\nX - Exit\n? - Help\n");
-            AnsiConsole.Markup("Your selection: ");
-            var userInput = Console.ReadLine();
-            if (userInput == "?")
-            {
-                ProbabilityTable.PrintProbabilityTable(allDices);
-                Console.Write("Your selection: ");
-                userInput = Console.ReadLine();
-            }
-            if (userInput == "X") Environment.Exit(0);
-            int userThrowInput = int.Parse(userInput);
+            PrintUserOption(userDice.Faces.Length);
+            int userThrowInput = GetUserInput();
 
             AnsiConsole.Markup($"I have selected {botThrowInput["Message"]}\n");
-            AnsiConsole.Markup($"[bold green]Key:[/] {botThrowInput["Key"]}\n");
+            AnsiConsole.Markup($"[bold green]Key:[/] [bold]{botThrowInput["Key"]}[/]\n");
+            
             int botThrowIndex = (int.Parse(botThrowInput["Message"]) + userThrowInput) % 6;
-            return botDice.Faces.ElementAt(botThrowIndex);
-        }
-
-        private int GetUserThrowValue()
-        {
-            AnsiConsole.Markup("It's your turn to throw the dice.\n");
-
-            var botThrowInput = FairMoveGenerator.ThrowInputSelector(botDice.Faces.Length);
-            AnsiConsole.Markup("I have selected a random value in the range [bold]0-5[/].\n");
-            AnsiConsole.Markup($"[bold green]HMAC:[/] [bold]{botThrowInput["HMAC"]}[/]\n");
-
-            AnsiConsole.Markup("[bold green]Your options:[/]\n");
-            AnsiConsole.Markup("0 - 0\n1 - 1\n2 - 2\n3 - 3\n4 - 4\n5 - 5\nX - Exit\n? - Help\n");
-            AnsiConsole.Markup("Your selection: ");
-            var userInput = Console.ReadLine();
-            if (userInput == "?")
-            {
-                ProbabilityTable.PrintProbabilityTable(allDices);
-                Console.Write("Your selection: ");
-                userInput = Console.ReadLine();
-            }
-            if (userInput == "X") Environment.Exit(0);
-            int userThrowInput = int.Parse(userInput);
-
-            AnsiConsole.Markup($"I have selected {botThrowInput["Message"]}\n");
-            AnsiConsole.Markup($"[bold green]Key:[/] {botThrowInput["Key"]}\n");
-            int userThrowIndex = (int.Parse(botThrowInput["Message"]) + userThrowInput) % 6;
-            return userDice.Faces.ElementAt(userThrowIndex);
+            return dice.Faces.ElementAt(botThrowIndex);
         }
 
         public static void PrintResult(int botThrowValue, int userThrowValue)
